@@ -1,0 +1,42 @@
+model_type: 'Gab' # Cij or Gab
+
+# Parameters: figures 1 and 3
+params1&3: {
+    'Gab': [
+
+    ['E2_S1_b','M7', ''],  # figure 1
+    #['E2_S2_b','M7', ''], # figure 3
+
+    ],
+    'Cij': [
+
+    ['E2_S1_b','C0', ''],  # figure 1
+    #['E2_S2_b','C0', ''], # figure 3
+
+            ]}
+
+# Parameters: figures 2 and 3 (NPIs)
+params2&4_NPIs: {
+    'Gab': [
+
+        ['E2_S1_b','M7', 'NPI_4'],
+        ['E2_S1_b','M7', ''],
+
+
+        ['E2_S2_b','M7', 'rel_4'],
+        ['E2_S2_b','M7', ''],
+        ]
+}
+
+# Parameters: figure 5 (True Matrices)
+params5: {
+    'Gab': [
+        ['E2_2w','Ma', ''],
+        ['E2_4w','Mb', ''],],
+        
+    'Cij': [
+        ['E2_2w','Ma', ''],
+        ['E2_4w','Mb', ''],]
+        }
+
+

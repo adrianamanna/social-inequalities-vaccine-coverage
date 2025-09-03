@@ -1,0 +1,20 @@
+N_iter: 3      # Number of iterations
+VE: 0.4        # Vaccine effectiveness
+eps_val: 0.4   # Transition rate E→I
+g2: 0.8        # efficacy of vaccine against death
+mu_val: 0.25   # Recovery/death rate
+seed: 100
+vax_saturation: 0.95 # Maximum vaccination coverage
+
+ifr_type: 'age'
+PRIORITIES_D2:  {
+    'Gab': { 
+    'p5':[0.35,0.45,0.2], # VD1
+    'p0':[0.3333333333, 0.3333333333, 0.3333333333], # VD2
+    'p3':[0.2, 0.3, 0.5], # VD3
+    'p8':[0.28, 0.46, 0.26], # VD4
+    
+    },
+    
+    'Cij': 
+    {None:None}}
