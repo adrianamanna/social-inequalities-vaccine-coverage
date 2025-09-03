@@ -5,6 +5,7 @@ venv/
 
 # --- Model's Output  ---
 res/
+figs/
 
 # --- Cache Python ---
 __pycache__/

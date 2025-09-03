@@ -3,6 +3,8 @@ from matplotlib.lines import Line2D
 from matplotlib import ticker
 
 import numpy as np
+import os
+os.makedirs("figs", exist_ok=True)
 
 plt.rcParams.update(
     {"font.size": 9, "font.style": "normal", "font.family": "sans-serif"}
