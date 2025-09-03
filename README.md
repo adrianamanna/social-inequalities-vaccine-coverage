@@ -37,7 +37,7 @@ pip install -r requirements.txt
 # Usage
 
 ## 1. Epidemic simulations
-### Generate epidemiological rates at the end of the epidemic f
+### Generate epidemiological rates at the end of the epidemic
 ```python get_epi_rates.py```
 
 ### Run and process the dynamics of the epidemic over time
@@ -55,7 +55,7 @@ pip install -r requirements.txt
 
 
 # Configuration
-- ```config_epi.yaml```: Core epidemiological parameters
+- ```config_epi.yaml```: Epidemiological parameters
 - ```config_matrix.yaml```: Contact matrix and population settings
 - ```config_params_torun.yaml```: Scenario definitions and model types
 - ```parameters.yaml```: Detailed scenario definitions and model parameters
