@@ -6,11 +6,11 @@ cd social-inequalities-vaccine-coverage
 
 pip install -r requirements.txt
 
-
+```
 ## Project structure
 ├── code/
 │   ├── get_epi_rates.py          # Calculate epidemiological rates
-│   ├── get_prep_epi.py           # Data preparation and preprocessing
+│   ├── get_prep_epi.py           # Epidemic simulations 
 │   ├── make_figure_1&3.py        # Generate figures 1 & 3
 │   ├── make_figure_2&4.py        # Generate figures 2 & 4 (NPIs)
 │   ├── make_figure_5.py          # Generate figure 5 (true matrices)
@@ -28,7 +28,7 @@ pip install -r requirements.txt
 ├── res/                          # Results storage (pickle files)
 ├── figs/                         # Generated figures
 └── data/                         # Input data files
-
+```
 
 # Usage
 
