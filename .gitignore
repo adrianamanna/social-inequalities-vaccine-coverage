@@ -1,0 +1,19 @@
+# --- Env ---
+venv/
+.env/
+.venv/
+
+# --- Model's Output  ---
+res/
+
+# --- Cache Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# --- Temporary Files ---
+*.log
+*.tmp
+*.swp
+.DS_Store
