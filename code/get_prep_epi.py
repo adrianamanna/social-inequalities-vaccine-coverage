@@ -1,9 +1,3 @@
-# Get the parent directory of the current directory
-import sys
-import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 import numpy as np
 import pandas as pd
 import pickle
@@ -13,7 +7,8 @@ from utils.data_tools import des_epi, des_epi_all
 from utils.EpiModels import EpiModel  # note model
 from utils.init_EpiParams import init_model_params
 from utils.tools import upload_yaml
-
+import os
+os.makedirs("res", exist_ok=True)
 
 # . init config
 config_params_torun = upload_yaml("config_params_torun")

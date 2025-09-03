@@ -8,7 +8,8 @@ from tqdm import tqdm
 from utils.EpiModels import EpiModel  # note model
 from utils.init_EpiParams import init_model_params
 from utils.tools import upload_yaml
-
+import os
+os.makedirs("res", exist_ok=True)
 
 # . init config
 config_params_torun = upload_yaml("config_params_torun")
