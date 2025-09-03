@@ -1,17 +1,16 @@
-## Installation
+# Installation
 
-## Install folder
+### Install folder
 ```
 git clone https://github.com/yourusername social-inequalities-vaccine-coverage.git
 cd social-inequalities-vaccine-coverage
 ```
 
-## Install requirements
+### Install requirements
 ```
 pip install -r requirements.txt
-
 ```
-## Project structure
+### Project structure
 ```
 ├── code/
 │   ├── get_epi_rates.py          # Calculate epidemiological rates
