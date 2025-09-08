@@ -74,18 +74,7 @@ python get_epi_rates.py
 python get_prep_epi.py
 ```
 
-### Running the Analysis
-
-#### 1. Generate Epidemiological Data
-```bash
-# Generate epidemiological rates at epidemic end
-python get_epi_rates.py
-
-# Run and process epidemic dynamics over time
-python get_prep_epi.py
-```
-
-#### 2. Generate Figures
+### Generate Figures
 ```bash
 # Figures 1 & 3: Basic analysis
 python make_figure_1&3.py
