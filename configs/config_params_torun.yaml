@@ -1,30 +1,25 @@
-model_type: 'Gab' # Cij or Gab
+model_type: 'Cij' # Cij or Gab
+params_to_run: 'params5' # 'params1&3', params2&4_NPIs, 'params5'
+
 
 # Parameters: figures 1 and 3
 params1&3: {
     'Gab': [
-
-    ['E2_S1_b','M7', ''],  # figure 1
-    #['E2_S2_b','M7', ''], # figure 3
+     ['E2_S1_b','M7', ''],  # figure 1
+    #['E2_S2_b','M7', ''],  # figure 3
 
     ],
     'Cij': [
-
-    ['E2_S1_b','C0', ''],  # figure 1
-    #['E2_S2_b','C0', ''], # figure 3
+     ['E2_S1_b','C0', ''],  # figure 1
+    #['E2_S2_b','C0', ''],  # figure 3
 
             ]}
 
 # Parameters: figures 2 and 3 (NPIs)
 params2&4_NPIs: {
     'Gab': [
-
-        ['E2_S1_b','M7', 'NPI_4'],
-        ['E2_S1_b','M7', ''],
-
-
-        ['E2_S2_b','M7', 'rel_4'],
-        ['E2_S2_b','M7', ''],
+        ['E2_S1_b','M7', 'NPI_4'], # figure 2
+        #['E2_S2_b','M7', 'rel_4'],# figure 4
         ]
 }
 

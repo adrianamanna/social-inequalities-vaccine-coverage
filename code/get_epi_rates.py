@@ -9,10 +9,13 @@ from utils.EpiModels import EpiModel  # note model
 from utils.init_EpiParams import init_model_params
 from utils.tools import upload_yaml
 import os
+
 os.makedirs("res", exist_ok=True)
 
 # . init config
 config_params_torun = upload_yaml("config_params_torun")
+params_to_run = config_params_torun["params_to_run"]
+
 config_mat = upload_yaml("config_matrix")
 config_epi = upload_yaml("config_epi")
 params = upload_yaml("parameters")
@@ -20,7 +23,7 @@ country = config_mat["country"]
 
 # R0s              = config_params_torun['R0s']
 model_type = config_params_torun["model_type"]
-SCENARIOS = config_params_torun["params1&3"]  # 'params1&3', params2&4_NPIs, 'params5'
+SCENARIOS = config_params_torun[params_to_run]
 
 # . init priorities
 PRIORITIES_D2 = config_epi["PRIORITIES_D2"]

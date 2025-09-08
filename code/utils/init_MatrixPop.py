@@ -12,11 +12,11 @@ from utils.matrix_tools_sy import (
 
 
 def init_MatrixAge(country, sim_type, nw=None):
-    if sim_type == 'synthetic':
+    if sim_type == "synthetic":
         data = pd.read_pickle("./data/data.pkl")
         P_d1, N_pop, M_d1, M_d1_tot = get_Pd1_Md1(data, country)
         N_d1 = {key: P_d1[key] * N_pop for key in P_d1.keys()}
-    
+
     elif sim_type == "mazsk":
         with open("./data/init_population/mazsk/Ms_" + nw + ".pkl", "rb") as f:
             Ms = pickle.load(f)

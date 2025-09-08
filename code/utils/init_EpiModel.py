@@ -25,4 +25,3 @@ def init_Omega(vax_scenario, nw, country):
     else:
         raise ValueError("Invalid `vax_scenario`")
     return Omega_t
-

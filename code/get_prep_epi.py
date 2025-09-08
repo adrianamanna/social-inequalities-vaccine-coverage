@@ -8,17 +8,20 @@ from utils.EpiModels import EpiModel  # note model
 from utils.init_EpiParams import init_model_params
 from utils.tools import upload_yaml
 import os
+
 os.makedirs("res", exist_ok=True)
 
 # . init config
 config_params_torun = upload_yaml("config_params_torun")
+params_to_run = config_params_torun["params_to_run"]
+
 config_mat = upload_yaml("config_matrix")
 config_epi = upload_yaml("config_epi")
 params = upload_yaml("parameters")
 country = config_mat["country"]
 
 model_type = config_params_torun["model_type"]  # Gab, Cij
-SCENARIOS = config_params_torun["params1&3"]  # 'params1&3', params2&4_NPIs, 'params5'
+SCENARIOS = config_params_torun[params_to_run]
 
 # . init vax priorities
 PRIORITY_TO_RUN = config_epi["PRIORITIES_D2"][model_type]
@@ -136,7 +139,7 @@ def prep_RES_ses(RES):
     return CCv
 
 
-#def prep_RES_age(RES):
+# def prep_RES_age(RES):
 #    lev_d1 = [0, 1, 2, 3, 4, 5, 6, 7]
 #    CCv = {}
 #    for _ in ["N", "S", "E", "I", "R", "D"]:
@@ -158,12 +161,12 @@ def prep_RES_ses(RES):
 def run_epi_prep(E, M, NPI_S, pvax_d2):
     RES = run_epi(E, M, NPI_S, pvax_d2)
     res = prep_RES_all(RES)
-    #res_age = prep_RES_age(RES)
+    # res_age = prep_RES_age(RES)
     if model_type == "Gab":
         res_Gab_ses = prep_RES_ses(RES)
-        return res, res_Gab_ses#, res_age
+        return res, res_Gab_ses  # , res_age
     elif model_type == "Cij":
-        return res#, res_age
+        return res  # , res_age
 
 
 for E, M, NPI_S in SCENARIOS[model_type]:
@@ -171,7 +174,7 @@ for E, M, NPI_S in SCENARIOS[model_type]:
 
     RES = [run_epi_prep(E, M, NPI_S, pvax_d2) for pvax_d2 in tqdm(PRIORITY_TO_RUN)]
     if model_type == "Gab":
-        res, res_Gab_ses = np.transpose(RES) #, res_age
+        res, res_Gab_ses = np.transpose(RES)  # , res_age
         with open(
             "./res/PREP_all_{}_{}_{}_{}.pkl".format(model_type, E, M, NPI_S), "wb"
         ) as f:
@@ -180,9 +183,9 @@ for E, M, NPI_S in SCENARIOS[model_type]:
             "./res/PREP_ses_{}_{}_{}_{}.pkl".format(model_type, E, M, NPI_S), "wb"
         ) as f:
             pickle.dump(res_Gab_ses, f)
-        #with open(
+        # with open(
         #    "./res/PREP_age_{}_{}_{}_{}.pkl".format(model_type, E, M, NPI_S), "wb"
-        #) as f:
+        # ) as f:
         #    pickle.dump(res_age, f)
 
     elif model_type == "Cij":

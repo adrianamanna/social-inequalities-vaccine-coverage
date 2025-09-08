@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 
+
 # SYNTETIC MATRICES
 def get_Pd1_Md1(data, country):
     """
@@ -119,7 +120,5 @@ def get_M_d1d2(M_d1_tot, n_dim2, N_d1d2, m_diag, m_off_diag):
 
     return M_d1d2_tot, M_d1d2
 
+
 # -------------------------------------------------------
-
-
-

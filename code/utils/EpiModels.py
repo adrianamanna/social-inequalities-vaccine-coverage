@@ -60,7 +60,6 @@ class EpiModel:
         elif self.model_type == "Gab":
             self.initialize_Gab_model(*model_args)
 
-
         if self.vaccination_type == "VDE":
             self.initialize_VDE_model(*vax_args)
         else:
@@ -97,10 +96,8 @@ class EpiModel:
             key: N_d1d2[key] * self.vax_saturation for key in N_d1d2.keys()
         }
 
-
     def initialize_VDE_model(self, Omega_t):
         self.Omega_t = Omega_t
-
 
     # NB IS THE RATE IS EQUAL BY AGE: JUST A NUMBER
     # IF NOT: IT IS A VECTOR.
