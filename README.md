@@ -50,6 +50,10 @@ In `/configs/config_params_to_run.yaml`, set:
   - `'params2&4_NPIs'` for figures 2 and 4 
   - `'params5'` for figure 5
 
+
+In `/configs/config_epi.yaml`, set `N_iter` equal to the number of simulations to run. 
+
+
 ### Model Requirements by Figure
 
 #### Figures 1 & 3

@@ -80,9 +80,6 @@ class EpiModel:
         self.N_lowerdim = N_d1
         self.M = M
         self.lev_d1 = lev_d1
-        self.vax_saturation_d1 = {
-            key: N_d1[key] * self.vax_saturation for key in N_d1.keys()
-        }
 
     def initialize_Gab_model(self, N_d1d2, N_d1, M, lev_d1, lev_d2, priority_dim2):
         self.N_lowerdim = N_d1d2
@@ -91,9 +88,6 @@ class EpiModel:
         self.lev_d1 = lev_d1
         self.lev_d2 = lev_d2
         self.priority_dim2 = priority_dim2
-        self.vax_saturation_d1d2 = {
-            key: N_d1d2[key] * self.vax_saturation for key in N_d1d2.keys()
-        }
 
     def initialize_VDE_model(self, Omega_t):
         self.Omega_t = Omega_t
@@ -261,49 +255,6 @@ class EpiModel:
         omega_key_t = {key: np.round(value) for key, value in omega_key_t.items()}
         return omega_key_t
 
-    def compute_vaccination_BE(self):
-        tot_vax = self.pN_vax * self.tot_N
-
-        if self.model_type == "Cij":
-            # 1. random wrt population [Cij and Gab]
-            if self.vax_scenario == "age_random":
-                omega_key_t = {
-                    key: self.N_lowerdim[key] / sum(self.N_lowerdim.values()) * tot_vax
-                    for key in self.keys
-                }
-
-            # 2. Cij and given by age
-            elif self.vax_scenario == "age_structure":
-                omega_key_t = {
-                    key: self.priority_dim1[key] * tot_vax for key in self.keys
-                }
-
-        elif self.model_type == "Gab":
-            dist_d2_byage = np.tile(self.priority_dim2, (len(self.lev_d1), 1))
-
-            # 3. Gab and given by age and ses
-            if self.vax_scenario == "age_structure":
-                omega_key_t = {(0, d2): 0 for d2 in self.lev_d2}
-                for age in self.priority_dim1.keys():
-                    for d2 in self.lev_d2:
-                        omega_key_t[(age, d2)] = (
-                            tot_vax * self.priority_dim1[age] * dist_d2_byage[age][d2]
-                        )
-
-            # 4. Gab and random by age and given by ses
-            elif self.vax_scenario == "age_random":
-                omega_key_t = {}
-                pN_d1 = {
-                    age: self.N_d1[age] / sum(self.N_d1.values()) for age in self.lev_d1
-                }
-                for age in self.lev_d1:
-                    for d2 in self.lev_d2:
-                        omega_key_t[(age, d2)] = (
-                            tot_vax * pN_d1[age] * dist_d2_byage[age][d2]
-                        )
-
-        omega_key_t = {key: np.round(value) for key, value in omega_key_t.items()}
-        return omega_key_t
 
     def update_compartments_trasmission(
         self, t, m_key, new_E, new_Ev, new_I, new_Iv, new_R, new_Rv, new_D, new_Dv
@@ -363,8 +314,7 @@ class EpiModel:
         self.R_vax[m_key][t] = self.R_vax[m_key][t] + vax_in_R
 
         self.exceeding_vax_key[t][m_key] = exceeding_vax
-        # if t> 10:
-        #    print('i')
+    
         return
 
     def distribute_vax(self, t, m_key, omega_key_t):
@@ -455,31 +405,11 @@ class EpiModel:
             )
         return
 
-    def compute_Omega_t_costant(self, t):
-        self.Omega_t = {}
-        SER_nv = {_: self.S[_][t] + self.E[_][t] + self.R[_][t] for _ in self.keys}
-        SER_nv_tot = sum(SER_nv.values())
-        omega_t = self.vax_rate * SER_nv_tot
-
-        if self.vax_scenario == "age_random":
-            self.Omega_t = {t - 1: omega_t}
-        elif self.vax_scenario == "age_structure":
-            self.Omega_t = {
-                t - 1: {d1: omega_t * self.priority_dim1[d1] for d1 in self.lev_d1}
-            }
-        return
-
+    
     def run(self):
-        # print(self.beta_val)
         self.init_compartments()
 
-        # vaccination before epi
-        if self.vaccination_type == "VBE":
-            omega_key_t = self.compute_vaccination_BE()
-            self.vaccination_dynamic(0, omega_key_t)
-
         for t in range(1, self.stop + 1):
-            # print(t, self.M[(0,0)][0, 0],self.M[(1,0)][1, 0])
             # .NPI
             if self.NPI is True:
                 # new condition for NPI based on infected cases
@@ -494,11 +424,6 @@ class EpiModel:
                 omega_key_t = self.compute_vaccination_DE(t)
                 self.vaccination_dynamic(t, omega_key_t)
 
-            # vaccination during epi constant
-            elif self.vaccination_type == "VDE_constant":
-                self.compute_Omega_t_costant(t)
-                omega_key_t = self.compute_vaccination_DE(t)
-                self.vaccination_dynamic(t, omega_key_t)
 
         if self.mode == "sensitivity":
             if self.model_type == "Gab":
@@ -506,7 +431,6 @@ class EpiModel:
             elif self.model_type == "Cij":
                 dims = len(self.lev_d1)
 
-            # arrays = ['DnvT', 'DvT', 'RnvT', 'RvT', 'I_newT', 'Iv_newT', 'D_newT', 'Dv_newT', 'NvT']
             arrays = [
                 "D",
                 "Dv",

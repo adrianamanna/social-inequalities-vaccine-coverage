@@ -2,11 +2,6 @@ import os
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 import matplotlib.ticker as ticker
-
-plt.rcParams.update(
-    {"font.size": 9, "font.style": "normal", "font.family": "sans-serif"}
-)
-
 import numpy as np
 
 from utils.data_tools import (
@@ -20,6 +15,9 @@ from utils.fig_tools import plot_combined_pvax_legend
 from utils.LABS import *
 from utils.tools import upload_yaml
 
+plt.rcParams.update(
+    {"font.size": 9, "font.style": "normal", "font.family": "sans-serif"}
+)
 
 pvax_colors = ["#0081a7", "#6dc4bc", "#DC6A41", "#fdc856"]
 
@@ -247,3 +245,4 @@ axs["b"].set_visible(False)
 
 os.makedirs("figs", exist_ok=True)
 plt.savefig(f"./figs/figure_{E}_{M}.pdf", bbox_inches="tight")
+plt.close()

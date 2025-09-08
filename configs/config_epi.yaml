@@ -1,4 +1,4 @@
-N_iter: 3      # Number of iterations
+N_iter: 500     # Number of iterations
 VE: 0.4        # Vaccine effectiveness
 eps_val: 0.4   # Transition rate E→I
 g2: 0.8        # efficacy of vaccine against death
