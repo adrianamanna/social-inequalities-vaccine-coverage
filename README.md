@@ -1,20 +1,25 @@
-# Installation
+# Social inequalities in vaccine coverage and their effects on epidemic spreading
+This project analyzes social inequalities in vaccine coverage using epidemiological modeling with different contact matrix approaches.
 
-### Install folder
-```
-git clone https://github.com/yourusername social-inequalities-vaccine-coverage.git
+## Installation
+
+### Clone Repository
+```bash
+git clone https://github.com/yourusername/social-inequalities-vaccine-coverage.git
 cd social-inequalities-vaccine-coverage
 ```
 
-### Install requirements
-```
+### Install Dependencies
+```bash
 pip install -r requirements.txt
 ```
-### Project structure
+
+## Project Structure
+
 ```
 ├── code/
 │   ├── get_epi_rates.py          # Calculate epidemiological rates
-│   ├── get_prep_epi.py           # Epidemic simulations 
+│   ├── get_prep_epi.py           # Epidemic simulations
 │   ├── make_figure_1&3.py        # Generate figures 1 & 3
 │   ├── make_figure_2&4.py        # Generate figures 2 & 4 (NPIs)
 │   ├── make_figure_5.py          # Generate figure 5 (true matrices)
@@ -34,34 +39,80 @@ pip install -r requirements.txt
 └── data/                         # Input data files
 ```
 
-# Usage
+## Usage
 
-## 1. Epidemic simulations
-### Generate epidemiological rates at the end of the epidemic
-```python get_epi_rates.py```
+### Configuration Setup
 
-### Run and process the dynamics of the epidemic over time
-```python get_prep_epi.py```
+In `/configs/config_params_to_run.yaml`, set:
+- `model_type`: Choose `'Cij'` or `'Gab'` to select the model type
+- `params_to_run`: Choose from:
+  - `'params1&3'` for figures 1 and 3
+  - `'params2&4_NPIs'` for figures 2 and 4 
+  - `'params5'` for figure 5
 
-## 2. Generate figures
-### Figures 1 & 3
-```python make_figure_1&3.py```
+### Model Requirements by Figure
 
-### Figures 2 & 4: NPI analysis
-```python make_figure_2&4.py```
+#### Figures 1 & 3
+Run simulations for **both models** (age-stratified and generalized):
+```bash
+python get_epi_rates.py
+python get_prep_epi.py
+```
 
-### Figures 5: True contact matrices from Hungary
-```python make_figure_5.py```
+#### Figures 2 & 4  
+Run simulations for **generalized model only**:
+```bash
+python get_epi_rates.py
+python get_prep_epi.py
+```
+*Note: Requires baseline scenario results from figures 1 & 3*
 
+#### Figure 5
+Run simulations for **both models** (age-stratified and generalized):
+```bash
+python get_epi_rates.py
+python get_prep_epi.py
+```
 
-# Configuration
-- ```config_epi.yaml```: Epidemiological parameters
-- ```config_matrix.yaml```: Contact matrix and population settings
-- ```config_params_torun.yaml```: Scenario definitions and model types
-- ```parameters.yaml```: Detailed scenario definitions and model parameters
-- ```IFR_age.yaml```: Age-stratified infection fatality rates
+### Running the Analysis
 
+#### 1. Generate Epidemiological Data
+```bash
+# Generate epidemiological rates at epidemic end
+python get_epi_rates.py
 
-# Model Types
-- $G_{\mathbf{ab}}$ Model: Generalized contact matrices with age × socioeconomic status stratification
-- $C_{ij}$ Model: Traditional age-stratified contact matrix model
+# Run and process epidemic dynamics over time
+python get_prep_epi.py
+```
+
+#### 2. Generate Figures
+```bash
+# Figures 1 & 3: Basic analysis
+python make_figure_1&3.py
+
+# Figures 2 & 4: Non-pharmaceutical interventions (NPI) analysis
+python make_figure_2&4.py
+
+# Figure 5: True contact matrices from Hungary
+python make_figure_5.py
+```
+
+## Configuration Files
+
+| File | Description |
+|------|-------------|
+| `config_epi.yaml` | Epidemiological parameters |
+| `config_matrix.yaml` | Contact matrix and population settings |
+| `config_params_to_run.yaml` | Scenario definitions and model types |
+| `parameters.yaml` | Detailed scenario definitions and model parameters |
+| `IFR_age.yaml` | Age-stratified infection fatality rates |
+
+## Model Types
+
+- **G_ab Model**: Generalized contact matrices with age × socioeconomic status stratification
+- **C_ij Model**: Traditional age-stratified contact matrix model
+
+## Output
+
+- **Results**: Stored as pickle files in `/res/` directory
+- **Figures**: Generated plots saved in `/figs/` directory

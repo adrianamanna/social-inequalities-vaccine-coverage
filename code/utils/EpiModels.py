@@ -48,7 +48,6 @@ class EpiModel:
         self.NPI = NPI
         self.M_npi = M_npi
         self.T_npi = T_npi
-        self.tot_Nv = 0
         self.exceeding_vax_key = {}
         self.mode = mode
 

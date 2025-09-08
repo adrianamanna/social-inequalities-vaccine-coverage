@@ -1,38 +1,5 @@
 import numpy as np
 
-
-def plot_pvax_legend(ax, letters, width, rel_p, pvax_d2_l, pvax_colors):
-    for i, (p, data) in enumerate(pvax_d2_l.items()):
-        positions = np.array([-0.2, 0, 0.2]) + i
-        bars = ax.bar(
-            positions, data, width=0.15, label=p, color=pvax_colors[i], alpha=1
-        )
-        for bar, letter in zip(bars, letters):
-            ax.text(
-                bar.get_x() + bar.get_width() / 2,
-                0,
-                letter,
-                ha="center",
-                va="bottom",
-                color="w",
-                fontsize=7,
-            )
-
-    ax.set_xticks(range(len(pvax_d2_l.keys())))
-    ax.set_xticklabels(pvax_d2_l.keys())
-    for spine in ["top", "right", "left", "bottom"]:
-        ax.spines[spine].set_visible(False)
-
-    ax.set_yticks([])
-    ax.set_yticklabels([])
-
-    original_position = ax.get_position()
-    new_width = original_position.width * width
-    new_x = original_position.x0 + (original_position.width - new_width) / rel_p
-    ax.set_position([new_x, original_position.y0, new_width, original_position.height])
-    return
-
-
 def plot_combined_pvax_legend(ax, datasets):
     """
     Plot multiple datasets as grouped bar charts in a single axis.
